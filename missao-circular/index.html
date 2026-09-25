@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1e6655"><meta name="description" content="Missão Circular: explore uma cadeira em 3D, investigue seu desgaste e decida o destino de oito componentes.">
+<title>Missão Circular — O destino da cadeira</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-phase="welcome">
+<a class="skip" href="#main">Pular para a experiência</a>
+<header class="topbar">
+ <a id="brand" class="brand" href="#inicio" aria-label="Missão Circular, início"></a>
+ <nav id="steps" class="steps" aria-label="Etapas da missão"></nav>
+ <div class="top-tools"><button id="storyButton" class="icon-button" title="A história da cadeira" aria-label="A história da cadeira"></button><button id="soundButton" class="icon-button" title="Som desligado" aria-label="Ativar som" aria-pressed="false"></button><button id="accessButton" class="icon-button" title="Acessibilidade" aria-label="Abrir acessibilidade"></button><button id="fullButton" class="icon-button" title="Tela cheia" aria-label="Abrir tela cheia"></button></div>
+</header>
+<main id="main" tabindex="-1">
+ <div id="workspace" class="workspace">
+  <aside id="sidePanel" class="side-panel" aria-labelledby="screenTitle">
+   <div class="panel-scroll">
+    <div id="eyebrow" class="eyebrow">Design e Sustentabilidade</div>
+    <h1 id="screenTitle" tabindex="-1">Pequenas escolhas,<br><em>grandes impactos.</em></h1>
+    <p id="screenIntro" class="intro"></p>
+    <div id="sideContent"></div>
+   </div>
+   <div id="panelActions" class="panel-actions"></div>
+  </aside>
+  <section id="viewport" class="viewport" aria-label="Ambiente tridimensional da cadeira">
+   <canvas id="scene" tabindex="0" aria-label="Cena 3D interativa. Use as setas para girar, mais e menos para aproximar. Os componentes também estão disponíveis na lista de inspeção."></canvas>
+   <div id="loading" class="loading"><span class="loading-leaf"></span><strong>Preparando a bancada…</strong><span>Modelos e texturas são renderizados neste dispositivo.</span></div>
+   <div id="viewportTop" class="viewport-top"><span id="viewCaption" class="view-caption"></span><button id="labelButton" class="soft-button" type="button" aria-pressed="false"></button></div>
+   <button id="closeInspection" class="back-inspector hidden" type="button"></button>
+   <div id="labels" class="labels" aria-label="Componentes na cena"></div>
+   <div id="binLabels" class="bin-labels"></div>
+   <button id="quickInspect" class="quick-inspect hidden" type="button" data-action="openSelected"></button>
+   <div id="sceneNotice" class="scene-notice hidden"></div>
+   <div class="viewport-bottom">
+    <span id="gestureHint" class="gesture-hint"></span>
+    <div id="cameraControls" class="camera-controls" aria-label="Controles da câmera">
+     <button data-camera="left" title="Girar para a esquerda" aria-label="Girar para a esquerda"></button><button data-camera="right" title="Girar para a direita" aria-label="Girar para a direita"></button><span class="control-divider"></span><button data-camera="in" title="Aproximar" aria-label="Aproximar"></button><button data-camera="out" title="Afastar" aria-label="Afastar"></button><button data-camera="reset" title="Visão geral" aria-label="Redefinir enquadramento"></button>
+    </div>
+   </div>
+   <div class="scene-signature">Um objeto. <em>Novas possibilidades.</em></div>
+  </section>
+ </div>
+ <section id="resultsView" class="results-view hidden" aria-labelledby="resultsTitle"></section>
+</main>
+<footer class="page-footer"><span>Missão Circular <span class="footer-dot">·</span> O destino da cadeira</span><span id="footerNote">Inspeção e desmontagem exclusivamente virtuais.</span></footer>
+<div id="live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="toast" class="toast hidden" role="status"></div>
+<dialog id="accessDialog" class="modal" aria-labelledby="accessTitle"><div class="modal-top"><span class="eyebrow">Seu jeito de explorar</span><button class="icon-button" data-close="accessDialog" aria-label="Fechar acessibilidade"></button></div><h2 id="accessTitle">Acessibilidade</h2><p>Os mesmos componentes podem ser examinados e classificados sem arrastar.</p><label class="switch-row"><span><b>Leitura em voz alta</b><small>Descrições e mensagens em português, quando disponíveis no navegador.</small></span><input id="speechSetting" type="checkbox" role="switch"></label><label class="switch-row"><span><b>Contraste ampliado</b><small>Texto e controles com contornos reforçados.</small></span><input id="contrastSetting" type="checkbox" role="switch"></label><label class="switch-row"><span><b>Reduzir movimentos</b><small>Transições diretas, sem animação de desmontagem.</small></span><input id="motionSetting" type="checkbox" role="switch"></label><label class="switch-row"><span><b>Mostrar nomes na cena</b><small>Além da lista de componentes do painel.</small></span><input id="labelsSetting" type="checkbox" role="switch"></label><div class="modal-note">Teclado: Tab percorre os controles. Enter ou Espaço ativa botões. Com a cena em foco, setas giram, + e − ajustam o zoom e Home retorna à visão geral. Escape fecha a inspeção.</div><button class="button primary full" data-close="accessDialog">Voltar à experiência</button></dialog>
+<dialog id="confirmDialog" class="modal" aria-labelledby="confirmTitle"><span class="eyebrow">Recomeçar</span><h2 id="confirmTitle">Iniciar uma nova missão?</h2><p>A triagem atual será apagada desta sessão. O resultado pode ser guardado antes de recomeçar.</p><div class="button-row"><button class="button secondary" data-close="confirmDialog">Continuar aqui</button><button class="button primary" id="confirmRestart">Recomeçar</button></div></dialog>
+<dialog id="awardDialog" class="modal award-modal" aria-labelledby="awardTitle"><div class="modal-top"><span class="eyebrow">Reconhecimento de participação</span><button class="icon-button" data-close="awardDialog" aria-label="Fechar reconhecimento"></button></div><div class="award-symbol" id="awardSymbol"></div><h2 id="awardTitle">Missão concluída.</h2><p id="awardPlayer" class="award-player"></p><div id="awardScore" class="award-score"></div><p id="awardLevel"></p><p class="small muted">Competências exercitadas: observação, análise de componentes e tomada de decisão.</p><div class="button-row"><button id="awardDownload" class="button secondary">Guardar resultado</button><button id="replayButton" class="button primary">Jogar novamente</button></div></dialog>
+<noscript><div class="no-script">Esta atividade precisa de JavaScript para funcionar. Ative-o no navegador e reabra o arquivo.</div></noscript>
+<script src="content.js"></script><script src="engine.js"></script><script src="software.js"></script><script src="scene.js"></script><script src="game.js"></script>
+</body></html>
