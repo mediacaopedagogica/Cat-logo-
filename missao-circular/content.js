@@ -45,5 +45,13 @@ const MC_ICONS={
  access:'<circle cx="12" cy="3" r="2"/><path d="M3 8h18M12 6v7m0 0-5 9m5-9 5 9"/>',expand:'<path d="M3 9V3h6m6 0h6v6m0 6v6h-6M9 21H3v-6"/>',download:'<path d="M12 2v13m-5-5 5 5 5-5M3 17v5h18v-5"/>',star:'<path d="m12 2 3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1Z"/>',mouse:'<rect x="6" y="2" width="12" height="20" rx="6"/><path d="M12 2v6"/>',list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h1m-1 6h1m-1 6h1"/>'
 };
 function icon(id,cls=''){return `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MC_ICONS[id]||MC_ICONS.info}</svg>`}
-function logo(){return `<svg class="brand-mark" viewBox="0 0 72 72" fill="none" aria-hidden="true"><path d="M55 16a28 28 0 0 1 2 40" stroke="#246b59" stroke-width="6"/><path d="m57 45 2 13-12-1" fill="#246b59"/><path d="M17 56A28 28 0 0 1 19 13" stroke="#77a392" stroke-width="6"/><path d="m14 10 13 2-5 11" fill="#77a392"/><path d="M25 48C17 34 33 26 46 20c3 19-4 31-21 28Z" fill="#9aab56"/><path d="m23 55 16-25" stroke="#fff" stroke-width="2"/><path d="M23 48c-9 0-14-8-15-15 10 1 18 5 15 15Z" fill="#657b36"/></svg>`}
+// Marca vetorial: setas com corpo e ponta no mesmo traçado, sem emendas soltas.
+function logo(){return `<svg xmlns="http://www.w3.org/2000/svg" class="brand-mark" data-logo-version="21.2" viewBox="0 0 72 72" width="72" height="72" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true" focusable="false" style="display:block;flex-shrink:0;height:auto;aspect-ratio:1">
+  <path d="M 46.261 7.809 A 30 30 0 0 1 45.271 64.532 L 46.198 67.385 L 33.073 63.847 L 42.798 56.923 L 43.725 59.776 A 25 25 0 0 0 44.551 12.508 Z" fill="#246b59"/>
+  <path d="M 25.739 64.191 A 30 30 0 0 1 26.729 7.468 L 25.802 4.615 L 38.927 8.153 L 29.202 15.077 L 28.275 12.224 A 25 25 0 0 0 27.449 59.492 Z" fill="#77a392"/>
+  <path d="M31 49 C25 41 29 31 49 22 C53 39 45 52 31 49 Z" fill="#9aab56"/>
+  <path d="M29 49 C21 52 17 44 17 35 C27 34 34 42 29 49 Z" fill="#657b36"/>
+  <path d="M27 56 C29 49 36 38 45 29" stroke="#fafaf4" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M29 49 Q25 43 21 40" stroke="#fafaf4" stroke-width="1.4" stroke-linecap="round"/>
+</svg>`}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
