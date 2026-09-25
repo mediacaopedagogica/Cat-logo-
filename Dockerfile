@@ -4,6 +4,9 @@ COPY missao-circular/ ./baseline/
 COPY release/ ./release/
 COPY tools/unpack.mjs ./tools/unpack.mjs
 RUN node tools/unpack.mjs /build/baseline /out
+COPY hotfix/ ./hotfix/
+COPY tools/patch-view.mjs ./tools/patch-view.mjs
+RUN node tools/patch-view.mjs /out /build/hotfix
 
 FROM node:24-bookworm-slim
 WORKDIR /app
