@@ -8,7 +8,9 @@ const projects = [
 {id:'tours',n:'04',title:'Tours virtuais e negociação imobiliária',type:'Pesquisa e reflexão',area:'Mercado imobiliário',img:'01',intro:'Exploração visual, recorte de pesquisa e reflexão aplicada no mesmo percurso de aprendizagem.',context:'Articular exploração de conteúdo, evidência de pesquisa e reflexão sobre o uso de tours virtuais na negociação imobiliária.',goal:'Preparar o estudante para formular uma contribuição fundamentada nas informações exploradas, relacionando-as ao contexto imobiliário.',solution:'Um ambiente visual reúne cards de exploração, um recorte de pesquisa em apresentação jornalística, indicação de progresso e um espaço para a contribuição do estudante.',choices:[['Informação antes da pergunta','As descobertas precedem a reflexão para oferecer contexto à contribuição do estudante.'],['Curadoria em destaque','O recorte de pesquisa é integrado à experiência, em vez de aparecer como leitura desconectada do percurso.'],['Exploração que leva à elaboração','O espaço de contribuição faz a passagem entre consultar informações e construir uma resposta.']],steps:[['Explorar os conteúdos','Percorrer os cards apresentados no ambiente.'],['Consultar a pesquisa','Ler o recorte de evidência selecionado.'],['Relacionar ao contexto','Considerar as implicações para a negociação imobiliária.'],['Elaborar uma contribuição','Responder à proposta reflexiva a partir da exploração.']],skills:['Curadoria de conteúdo','Sequenciamento didático','Design de atividade reflexiva','Narrativa visual'],record:'Interface com cards, recorte de pesquisa e espaço de reflexão, além da descrição de sua organização pedagógica.',tech:'Ambiente visual interativo e registro de contribuição.'}
 ];
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const picture = (number, alt) => `<img src="${esc(window.KEISE_IMAGES?.[number] || `assets/imagem-${number}.webp`)}" alt="${esc(alt)}" decoding="async">`;
+const TRIAGEM_IMAGE = 'assets/triagem-pecas-20260925.avif';
+const TRIAGEM_ALT = 'Triagem das peças: componentes de uma cadeira sobre a bancada e cinco destinos coloridos — Reuso, Reparo, Remanufatura, Reciclagem e Rejeito.';
+const picture = (number, alt) => `<img src="${esc(number==='06' ? TRIAGEM_IMAGE : window.KEISE_IMAGES?.[number] || `assets/imagem-${number}.webp`)}" alt="${esc(number==='06' ? TRIAGEM_ALT : alt)}" decoding="async">`;
 function caseMarkup(p) {
  const next = projects[(projects.indexOf(p)+1)%projects.length];
  const demo = p.demo ? `<a class="button primary" href="${esc(p.demo)}" target="_blank" rel="noopener noreferrer">Experimentar o projeto ↗</a>` : '';
@@ -55,6 +57,8 @@ async function loadMagazine() {
  try {
   let source=window.KEISE_ORIGINAL;
   if(typeof source!=='string'){const res=await fetch('revista-base.html');if(!res.ok)throw new Error('HTTP '+res.status);source=await res.text();}
+  // Atualiza a captura na revista sem modificar os demais projetos.
+  source=source.replaceAll('assets/imagem-06.webp',TRIAGEM_IMAGE);
   const parsed=new DOMParser().parseFromString(source,'text/html');
   const match=source.match(/const pages = \[([\s\S]*?)\n\];/);
   if(!match)throw new Error('A estrutura da revista não foi encontrada.');
