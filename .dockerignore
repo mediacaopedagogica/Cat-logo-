@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!missao-circular/
+!missao-circular/**
+!release/
+!release/**
+!tools/
+!tools/unpack.mjs
