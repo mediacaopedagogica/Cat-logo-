@@ -6,3 +6,6 @@
 !release/**
 !tools/
 !tools/unpack.mjs
+!tools/patch-view.mjs
+!hotfix/
+!hotfix/**
