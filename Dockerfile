@@ -8,6 +8,7 @@ COPY hotfix/ ./hotfix/
 COPY tools/patch-view.mjs ./tools/patch-view.mjs
 RUN node tools/patch-view.mjs /out /build/hotfix
 RUN node /build/hotfix/ending-apply.mjs /out
+RUN node /build/hotfix/data-apply.mjs /out /build/hotfix
 
 FROM node:24-bookworm-slim
 WORKDIR /app
