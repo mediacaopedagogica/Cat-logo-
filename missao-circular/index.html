@@ -5,6 +5,54 @@
 <meta name="theme-color" content="#1e6655"><meta name="description" content="Missão Circular: explore uma cadeira em 3D, investigue seu desgaste e decida o destino de oito componentes.">
 <title>Missão Circular — O destino da cadeira</title>
 <link rel="stylesheet" href="styles.css">
+<style id="intro-sequence-v21-1">
+/* Entrada e contexto precedem a revelação do objeto.
+   A regra já vale na primeira pintura, antes de carregar o JavaScript.
+   Ocultar o viewport também retira câmera e controles da navegação por teclado.
+   Nas etapas seguintes, a cena e a triagem mantêm os estilos e as interações originais. */
+body:is([data-phase="welcome"],[data-phase="story"]) #viewport{display:none!important}
+body:is([data-phase="welcome"],[data-phase="story"]) #workspace{display:block;width:100%;max-width:1160px;height:auto;min-height:0;max-height:none;margin:clamp(12px,3vh,36px) auto;overflow:hidden}
+body:is([data-phase="welcome"],[data-phase="story"]) #sidePanel{width:100%;border:0;min-height:0}
+body:is([data-phase="welcome"],[data-phase="story"]) .panel-scroll{overflow:visible;min-height:0}
+body:is([data-phase="welcome"],[data-phase="story"]) .steps{display:none}
+body[data-phase="welcome"] #sidePanel{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(290px,.85fr);align-items:center;background:radial-gradient(ellipse at 0% 0%,#fbf8e8,transparent 65%),linear-gradient(140deg,#fcfcf5,#edf3e7)}
+body[data-phase="welcome"] .panel-scroll{padding:clamp(28px,4vw,52px)}
+body[data-phase="welcome"] #screenTitle{font-size:clamp(36px,4.3vw,58px);line-height:1.07;max-width:540px}
+body[data-phase="welcome"] .intro{font-size:15px;max-width:440px}
+body[data-phase="welcome"] .hero-features{max-width:360px;margin-top:24px}
+body[data-phase="welcome"] .hero-note{font-size:18px;margin-top:24px}
+body[data-phase="welcome"] .panel-actions{border:1px solid #dce5d4;border-radius:24px;padding:30px 26px;margin:28px 32px 28px 0;background:#fffdf6;box-shadow:0 12px 32px #244c3610;min-width:0}
+body[data-phase="welcome"] .welcome-entry{gap:18px}
+body[data-phase="welcome"] .field label{font-size:13px}
+body[data-phase="welcome"] .field small{font-size:11px}
+body[data-phase="welcome"] .field input{min-height:48px}
+body[data-phase="welcome"] #startButton{min-height:50px;font-size:14px}
+body[data-phase="story"] .panel-scroll{padding:clamp(26px,4vw,48px)}
+body[data-phase="story"] #screenTitle{font-size:clamp(30px,3.4vw,44px);max-width:850px}
+body[data-phase="story"] .intro{max-width:760px}
+body[data-phase="story"] .story-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:30px}
+body[data-phase="story"] .story-row{flex-direction:column;gap:10px}
+body[data-phase="story"] .story-row p{font-size:13px}
+body[data-phase="story"] .panel-actions{padding:20px clamp(26px,4vw,48px);flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
+@media(max-width:849px){
+ body[data-phase="welcome"] #sidePanel{grid-template-columns:minmax(0,1fr)}
+ body[data-phase="welcome"] .panel-scroll{padding:28px 28px 20px}
+ body[data-phase="welcome"] #screenTitle{max-width:620px}
+ body[data-phase="welcome"] .intro{max-width:600px}
+ body[data-phase="welcome"] .panel-actions{margin:0 28px 28px;padding:24px}
+ body[data-phase="story"] .story-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:479px){
+ body:is([data-phase="welcome"],[data-phase="story"]) #workspace{margin:8px auto 12px}
+ body[data-phase="welcome"] .panel-scroll{padding:26px 22px 20px}
+ body[data-phase="welcome"] #screenTitle{font-size:36px}
+ body[data-phase="welcome"] .panel-actions{margin:0 16px 20px;padding:20px 16px}
+ body[data-phase="story"] .panel-scroll{padding:26px 22px}
+ body[data-phase="story"] .story-list{grid-template-columns:1fr;gap:20px}
+ body[data-phase="story"] .story-row{flex-direction:row;gap:12px}
+ body[data-phase="story"] .panel-actions{padding:18px 22px;flex-direction:column;align-items:stretch}
+}
+</style>
 </head>
 <body data-phase="welcome">
 <a class="skip" href="#main">Pular para a experiência</a>
