@@ -1,0 +1,60 @@
+/* Paginação editorial: o conteúdo determina a altura necessária, sem rolagens sobrepostas. */
+html,body{height:100%;overflow:hidden}
+.app{height:100%;min-height:0;grid-template-rows:auto minmax(0,1fr) auto;padding:16px 18px 22px;gap:16px}
+.bar{max-width:1600px;min-width:0;flex-wrap:wrap}.controls{gap:8px}.btn{min-height:42px}
+.stage{min-height:0;overflow:visible;padding:0 16px 12px}
+.magazine{width:100%;max-width:1600px;height:100%;min-height:0}
+.spread{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.half,.leaf-face{container-type:size;min-width:0;min-height:0;overflow:hidden}
+.page{height:100%;min-height:0;overflow:hidden!important}
+.copy{height:100%;min-height:0;padding:36px 7cqw 48px;overflow:visible;justify-content:center}
+.copy h2{font-size:clamp(31px,7cqw,49px);line-height:1.04;letter-spacing:-.035em;margin-bottom:18px;overflow-wrap:normal}
+.copy p{font-size:clamp(14px,2.5cqw,17px);line-height:1.65;margin:.4em 0}
+.kicker{font-size:11px;line-height:1.6;letter-spacing:.13em;margin-bottom:14px}
+.chips{gap:7px;margin-top:18px}.chip{font-size:12px;line-height:1.4;padding:7px 10px;white-space:normal!important}
+.case-more{margin-top:18px;font-size:13px;line-height:1.45;max-width:100%;white-space:normal}
+.page-no{bottom:16px;line-height:1.2}.left .page-no{left:24px}.right .page-no{right:24px}
+.keise-cover{height:100%!important;min-height:0;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)!important;grid-template-rows:1fr!important;align-items:center;gap:22px;padding:38px 7cqw 50px!important;overflow:hidden}
+.keise-copy{padding:0!important;min-width:0;align-self:center;position:relative!important;inset:auto!important;background:none!important;backdrop-filter:none!important;border:0!important}
+.keise-copy h1{font-size:clamp(42px,9cqw,75px)!important;line-height:1.02!important;letter-spacing:-.045em}
+.keise-copy h1 span{font-size:clamp(29px,6.2cqw,46px)!important;line-height:1.06!important;margin-top:15px}
+.keise-copy p{font-size:clamp(14px,2.4cqw,17px)!important;line-height:1.65!important;margin-top:25px;max-width:100%}
+.keise-mini-tags{gap:7px;margin-top:22px}.keise-mini-tags span{font-size:11px;line-height:1.4;padding:7px 10px}
+.keise-portrait-zone{position:relative!important;inset:auto!important;padding:0!important;min-height:0!important;height:340px!important;max-height:100%;align-self:center;min-width:0}
+.keise-photo-frame{width:100%!important;height:auto!important;aspect-ratio:4/5;max-width:240px!important;max-height:260px;transform:rotate(2deg);border-width:6px;border-radius:28px}
+.keise-photo-frame img{height:100%;width:100%;object-fit:cover;object-position:50% 8%}
+.keise-note{position:absolute!important;left:-14px!important;right:auto!important;bottom:-10px!important;top:auto!important;width:calc(100% + 20px)!important;max-width:220px;padding:13px 15px!important;font-size:12px!important;line-height:1.45!important;transform:rotate(-2deg)!important}
+.keise-note strong{font-size:13px!important;line-height:1.35!important}.keise-note span{font-size:11px!important;line-height:1.45!important}.blob-a{top:-5%;right:-10%;width:120%}.blob-b{bottom:4%;left:-20%}
+.about-thinking-inner{height:100%!important;min-height:0!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:32px 5cqw 46px!important;gap:24px!important;align-items:center!important;overflow:visible!important}
+.about-intro{min-width:0;padding:0}.about-intro h2{font-size:clamp(27px,5.3cqw,39px)!important;line-height:1.05!important;margin:0 0 16px!important}
+.about-intro p{font-size:clamp(14px,2.25cqw,16px)!important;line-height:1.55!important;margin:0 0 12px!important}
+.about-intro .chips{gap:6px!important;margin-top:16px!important;padding:0!important}.about-intro .chip{font-size:11px!important;line-height:1.4!important;padding:6px 9px!important;white-space:normal!important}
+.thinking-side{min-width:0;padding:20px!important;border-radius:26px!important;transform:none}
+.thinking-label{font-size:10px;line-height:1.55;margin-bottom:10px!important}
+.thinking-side h3{font-size:clamp(25px,4.8cqw,36px)!important;line-height:1.06!important}
+.thinking-side>p{font-size:13px!important;line-height:1.5!important;margin:14px 0 17px!important}
+.thinking-cards{gap:9px!important}.thinking-cards>div{padding:10px 11px!important;transform:none!important}.thinking-cards b{font-size:12px!important;line-height:1.4!important;margin:0 0 4px!important}.thinking-cards span{font-size:12px!important;line-height:1.4!important}
+.photo{height:100%!important;min-height:0!important;padding:24px!important;overflow:hidden}.photo>img{max-height:78%;width:100%;height:auto;object-fit:contain}
+.tour-logo-mask{display:none!important}
+.contact,.about-card{height:100%;min-height:0;padding:38px 7cqw 48px;overflow:visible}
+.contact h2,.about-card .quote{font-size:clamp(33px,7cqw,48px);line-height:1.05}.contact-row a{font-size:clamp(13px,2.5cqw,17px)}
+.about-card p{font-size:16px;line-height:1.7}
+footer.bar{position:relative;z-index:40}.progress{max-width:300px}.hint{font-size:11px}
+@media(max-width:900px){
+ .app{padding:10px 10px 16px;gap:12px}.bar{justify-content:center;gap:8px}.brand{font-size:13px}.brand>span:last-child{display:none}.stage{padding:0 0 6px}
+ .spread{grid-template-columns:minmax(0,1fr)}.half.left{display:none}.half.right{display:block;overflow:hidden!important}.spread::after{display:none}
+ .half.right .page{height:100%!important;overflow:hidden!important;touch-action:auto}
+ .magazine::before{display:none}.controls{gap:5px}.btn{font-size:12px;padding:8px 11px}
+ .copy{padding:30px 28px 46px}.copy h2{font-size:clamp(30px,8cqw,42px)}.copy p{font-size:15px}
+ .keise-cover{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;align-content:center;gap:28px;padding:28px 28px 48px!important}
+ .keise-copy h1{font-size:clamp(43px,12cqw,68px)!important}.keise-copy h1 span{font-size:clamp(30px,8.2cqw,44px)!important}
+ .keise-copy p{font-size:15px!important;margin-top:20px!important}.keise-mini-tags{margin-top:18px}.keise-mini-tags span{font-size:11px}
+ .keise-portrait-zone{height:310px!important;min-height:0!important;width:230px;justify-self:center}
+ .keise-photo-frame{width:190px!important;max-height:238px;max-width:190px!important}
+ .keise-note{left:65px!important;bottom:0!important;width:190px!important;max-width:190px}
+ .about-thinking-inner{grid-template-columns:1fr!important;padding:30px 27px 48px!important;gap:26px!important;align-content:center}
+ .about-intro h2{font-size:clamp(30px,8cqw,40px)!important}.about-intro p{font-size:15px!important;line-height:1.6!important}
+ .thinking-side{padding:20px!important}.thinking-side h3{font-size:30px!important}.thinking-cards span,.thinking-cards b{font-size:13px!important;line-height:1.45!important}
+ .thinking-side>p{font-size:14px!important}.thinking-label{font-size:11px}.photo{padding:16px!important}.photo>img{max-height:85%}
+ .page-no{bottom:15px}.progress,.hint{display:none}footer.bar .controls{width:100%;justify-content:center;flex-wrap:wrap}#chapter{max-width:145px}#count{font-size:12px;min-width:54px}
+}

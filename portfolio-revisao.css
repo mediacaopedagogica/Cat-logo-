@@ -1,0 +1,9 @@
+/* A revista pode aumentar a área da página, em vez de esconder texto no iframe. */
+body.in-magazine{overflow-x:hidden}
+.magazine-view{height:auto;min-height:100dvh;overflow:visible}
+.magazine-top{padding:20px 0;gap:18px}
+.magazine-view #magazine-frame{display:block;flex:none;min-height:0;height:760px;max-height:none;width:100%;border:0}
+@media(max-width:900px){.magazine-top{padding:16px 0}.magazine-view #magazine-frame{height:880px}}
+
+/* The branded header is never shown while the clean full-width crop loads. */
+img[src*="imagem-01.webp"]{visibility:hidden!important}
