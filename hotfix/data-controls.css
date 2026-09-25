@@ -1,0 +1,19 @@
+/* Private data controls; same visual language as the mediator panel. */
+.data-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0;padding:16px 18px;border:1px solid #d2dfd4;border-radius:16px;background:#f4f8f1}
+.data-tools p{margin:0;flex:1 1 260px;color:#466450;font-size:13px;line-height:1.6}
+.data-tools label,.data-card-actions label{display:flex;flex-direction:row;align-items:center;gap:9px;font-size:13px;color:#244e3c}
+.data-tools input,.data-select{width:20px;height:20px;min-height:20px;min-width:20px;flex:none;margin:0;accent-color:#236b53;cursor:pointer}
+.data-tools .selection-count{font-size:13px;min-width:92px}
+.button.danger,.link-button.danger{color:#8e3431;background:#fff6f3;border:1px solid #dab7ad}
+.button.danger:disabled{opacity:.45;cursor:not-allowed}
+.data-row-actions{display:flex;align-items:center;gap:10px}.data-row-actions button{white-space:nowrap}
+.feedback-card .data-card-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid #dce5d6}
+.data-archive-tag{display:inline-block;border-radius:16px;padding:4px 9px;background:#e8e9ed;color:#49525e;font-size:12px;margin-left:8px}
+.data-confirm{width:min(640px,calc(100vw - 32px))}.data-confirm p{line-height:1.65}.data-preview-list{max-height:190px;overflow:auto;background:#f5f8f1;border-radius:12px;padding:14px 14px 14px 35px;margin:14px 0;font-size:13px}.data-preview-list li{margin:6px 0}
+.data-confirm strong{color:#793d30}.data-confirm .data-warning{background:#fff2e8;padding:14px;border-radius:12px;border:1px solid #ead1c1}
+.data-confirm label{display:block;margin-top:18px;font-size:14px}.data-confirm input{width:100%;margin:8px 0 18px;min-height:46px;padding:9px 12px;border:1px solid #bacbb9;border-radius:10px;font:inherit}
+.data-confirm .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.data-confirm::backdrop{background:#0f322bbc;backdrop-filter:blur(3px)}
+.data-control-status{min-height:24px;font-size:13px;color:#215b46;margin:8px 0}
+.data-policy-status{font-size:12px;color:#4f6356;display:block;margin-top:12px}
+@media(max-width:650px){.data-tools{align-items:flex-start}.data-tools p{flex-basis:100%}.data-tools .button{flex:1 1 auto}.data-confirm{padding:22px 18px}.data-card-actions .button{font-size:12px}}
