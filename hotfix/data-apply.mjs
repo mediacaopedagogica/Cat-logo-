@@ -26,7 +26,7 @@ edit('public/mediadora/index.html',s=>{
 });
 edit('public/mediadora/panel.js',s=>{
  s=rep(s,'  return q;','  return window.MediacaoDataControls.query(q);');
- s=rep(s,"  if(view==='feedback'){", "  window.MediacaoDataControls.render({view,data,api,load,query,resetPage:()=>{offset=0;}});\n  if(view==='feedback'){");
+ s=rep(s,"  if(view==='feedback'){", "  window.MediacaoDataControls.render({view,data,api,load,query,resetPage:()=>{offset=0;}});window.__KLA_PANEL__={api,load};\n  if(view==='feedback'){");
  s=rep(s,"$('#gameLinkRequired').checked=g.linkRequired;", "$('#gameLinkRequired').checked=g.linkRequired;$('#gameFeedbackEnabled').checked=g.feedbackEnabled!==false;");
  s=rep(s,"body:{enabled:$('#gameEnabled').checked,", "body:{feedbackEnabled:$('#gameFeedbackEnabled').checked,enabled:$('#gameEnabled').checked,");
  s=rep(s,"$('#clearFilters').onclick=()=>{", "$('#clearFilters').onclick=()=>{window.MediacaoDataControls.reset();");
