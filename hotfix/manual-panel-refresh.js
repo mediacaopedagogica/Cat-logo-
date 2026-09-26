@@ -1,6 +1,18 @@
 /* Painel da Mediadora — atualização sob demanda, sem polling contínuo. */
 'use strict';
 (()=>{
+  /* Bloqueia somente o canal SSE de atualização contínua deste painel. */
+  const NativeEventSource=window.EventSource;
+  class ManualEventSource{
+    constructor(url){this.url=String(url||'');this.readyState=2;this.withCredentials=false;this.onopen=null;this.onmessage=null;this.onerror=null;}
+    addEventListener(){}
+    removeEventListener(){}
+    dispatchEvent(){return false;}
+    close(){this.readyState=2;}
+  }
+  ManualEventSource.CONNECTING=0;ManualEventSource.OPEN=1;ManualEventSource.CLOSED=2;
+  window.__MEDIADORA_NATIVE_EVENT_SOURCE__=NativeEventSource;
+  window.EventSource=ManualEventSource;
   function install(){
     if(document.getElementById('manualDataRefresh'))return;
 
