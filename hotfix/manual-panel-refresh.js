@@ -31,6 +31,28 @@
       location.reload();
     });
 
+
+    const exportButton=document.createElement('button');
+    exportButton.id='exportKeiseAnalytics';
+    exportButton.type='button';
+    exportButton.textContent='Exportar para Keise Analytics';
+    exportButton.title='Gerar agora um arquivo com participações, resultados e feedbacks.';
+    exportButton.style.cssText=button.style.cssText+';border-color:#d8c9ef;color:#644f8c;background:#fbf8ff';
+    exportButton.addEventListener('click',async()=>{
+      const bridge=window.__KLA_PANEL__;
+      if(!bridge?.api){note.textContent='Entre no painel e tente novamente.';return;}
+      exportButton.disabled=true;const label=exportButton.textContent;exportButton.textContent='Preparando…';
+      try{
+        const payload=await bridge.api('/admin/data/analytics-export');
+        const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
+        const url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download='keise-analytics-missao-circular-'+new Date().toISOString().slice(0,10)+'.json';
+        document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+        note.textContent='Arquivo preparado agora.';
+      }catch(e){note.textContent=e?.message||'Não foi possível exportar agora.';}
+      finally{exportButton.disabled=false;exportButton.textContent=label;}
+    });
+
     const note=document.createElement('span');
     note.id='manualDataRefreshNote';
     note.textContent='Atualização manual';
@@ -39,7 +61,7 @@
     const wrap=document.createElement('div');
     wrap.id='manualDataRefreshWrap';
     wrap.style.cssText='display:flex;align-items:center;gap:8px;flex-wrap:wrap';
-    wrap.append(button,note);
+    wrap.append(button,exportButton,note);
 
     const target=
       document.querySelector('.toolbar .actions')||
