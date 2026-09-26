@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 const root=resolve(process.argv[2]||'/out'),src=resolve(process.argv[3]||'/build/hotfix');
 function edit(path,fn){const p=resolve(root,path),before=readFileSync(p,'utf8'),after=fn(before);if(before===after)throw Error('No change applied: '+path);writeFileSync(p,after);}
 function rep(s,a,b){if(!s.includes(a))throw Error('Expected source not found: '+a.slice(0,90));return s.replace(a,b);}
-for(const [from,to]of[['data-management.mjs','server/data-management.mjs'],['data-controls.js','public/mediadora/data-controls.js'],['data-controls.css','public/mediadora/data-controls.css'],['feedback-policy.js','public/gameseducativos/feedback-policy.js']])copyFileSync(resolve(src,from),resolve(root,to));
+for(const [from,to]of[['data-management.mjs','server/data-management.mjs'],['data-controls.js','public/mediadora/data-controls.js'],['data-controls.css','public/mediadora/data-controls.css'],['manual-panel-refresh.js','public/mediadora/manual-panel-refresh.js'],['feedback-policy.js','public/gameseducativos/feedback-policy.js']])copyFileSync(resolve(src,from),resolve(root,to));
 edit('server/portal.mjs',s=>{
  s=rep(s,"import { DatabaseSync } from 'node:sqlite';","import { DatabaseSync } from 'node:sqlite';\nimport { createDataManagement } from './data-management.mjs';");
  s=rep(s,'  const subscribers=new Set(),limits=new Map();','  const dataControls=createDataManagement({db,fail,body,output,broadcast,audit,digest,token,now});\n  const subscribers=new Set(),limits=new Map();');
@@ -21,7 +21,7 @@ edit('server/portal.mjs',s=>{
 });
 edit('public/mediadora/index.html',s=>{
  s=rep(s,'</head>','<link rel="stylesheet" href="data-controls.css?v=23.2"></head>');
- s=rep(s,'<script src="panel.js"></script>','<script src="data-controls.js?v=23.2"></script><script src="panel.js?v=23.2"></script>');
+ s=rep(s,'<script src="panel.js"></script>','<script src="data-controls.js?v=23.3"></script><script src="manual-panel-refresh.js?v=23.3"></script><script src="panel.js?v=23.3"></script>');
  return rep(s,'<label class="check-row"><input type="checkbox" id="gameLinkRequired">','<label class="check-row"><input type="checkbox" id="gameFeedbackEnabled" checked> Receber avaliações ao final</label><p class="note">Desmarque para pausar novos envios. Avaliações já recebidas, resultados e acesso ao jogo são preservados.</p><label class="check-row"><input type="checkbox" id="gameLinkRequired">');
 });
 edit('public/mediadora/panel.js',s=>{
@@ -31,6 +31,7 @@ edit('public/mediadora/panel.js',s=>{
  s=rep(s,"body:{enabled:$('#gameEnabled').checked,", "body:{feedbackEnabled:$('#gameFeedbackEnabled').checked,enabled:$('#gameEnabled').checked,");
  s=rep(s,"$('#clearFilters').onclick=()=>{", "$('#clearFilters').onclick=()=>{window.MediacaoDataControls.reset();");
  s=rep(s,"  stopLive();csrf='';data=null;", "  window.MediacaoDataControls.reset();stopLive();csrf='';data=null;");
+ s=rep(s,'function startLive(){','function startLive(){return;/* atualização manual: sem SSE contínuo */');
  return s;
 });
 edit('public/shared/host-client.js',s=>{
@@ -39,6 +40,6 @@ edit('public/shared/host-client.js',s=>{
  return rep(s,'return {onParticipant,onProgress,onResult,onFeedback,getSession:',"return {onParticipant,onProgress,onResult,onFeedback,onFeedbackPolicy:()=>request('/public/feedback-policy',null,saved?.token,'GET'),getSession:");
 });
 edit('public/gameseducativos/index.html',s=>rep(s,'</body>','<script src="feedback-policy.js?v=23.2"></script>\n</body>'));
-const files=['server/portal.mjs','server/data-management.mjs','public/mediadora/panel.js','public/mediadora/index.html','public/mediadora/data-controls.js','public/mediadora/data-controls.css','public/shared/host-client.js','public/gameseducativos/feedback-policy.js','public/gameseducativos/index.html'];
+const files=['server/portal.mjs','server/data-management.mjs','public/mediadora/panel.js','public/mediadora/index.html','public/mediadora/data-controls.js','public/mediadora/data-controls.css','public/mediadora/manual-panel-refresh.js','public/shared/host-client.js','public/gameseducativos/feedback-policy.js','public/gameseducativos/index.html'];
 writeFileSync(resolve(root,'DATA_CONTROLS_SHA256.json'),JSON.stringify({version:'23.2',files:Object.fromEntries(files.map(p=>[p,createHash('sha256').update(readFileSync(resolve(root,p))).digest('hex')]))},null,2));
-console.log('23.2: optional deletion with preview, feedback archive/restore and per-game collection switch. No records deleted.');
+console.log('23.3: painel da mediadora em atualização manual; sem live/SSE contínuo. Nenhum registro alterado.');
