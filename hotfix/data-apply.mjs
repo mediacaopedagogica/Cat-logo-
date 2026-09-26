@@ -31,7 +31,6 @@ edit('public/mediadora/panel.js',s=>{
  s=rep(s,"body:{enabled:$('#gameEnabled').checked,", "body:{feedbackEnabled:$('#gameFeedbackEnabled').checked,enabled:$('#gameEnabled').checked,");
  s=rep(s,"$('#clearFilters').onclick=()=>{", "$('#clearFilters').onclick=()=>{window.MediacaoDataControls.reset();");
  s=rep(s,"  stopLive();csrf='';data=null;", "  window.MediacaoDataControls.reset();stopLive();csrf='';data=null;");
- s=rep(s,'function startLive(){','function startLive(){return;/* atualização manual: sem SSE contínuo */');
  return s;
 });
 edit('public/shared/host-client.js',s=>{
