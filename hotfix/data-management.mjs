@@ -56,6 +56,19 @@ export function createDataManagement({db,fail,body,output,broadcast,audit,digest
       });
       previews.delete(b.previewToken);broadcast('data-deleted');output(res,200,{ok:true,deleted});return true;
     }
+    if(path==='/admin/data/analytics-export'&&method==='GET'){
+      const attempts=db.prepare('SELECT a.id,a.name,a.game_id gameId,a.updated_at updatedAt,g.title gameTitle FROM attempts a JOIN games g ON g.id=a.game_id ORDER BY a.updated_at').all();
+      const results=db.prepare('SELECT r.id,r.attempt_id attemptId,r.points,r.created_at createdAt,a.name,a.game_id gameId,g.title gameTitle FROM results r JOIN attempts a ON a.id=r.attempt_id JOIN games g ON g.id=a.game_id ORDER BY r.created_at').all();
+      const feedback=db.prepare('SELECT f.id,f.attempt_id attemptId,f.result_id resultId,f.rating,f.comment,f.updated_at updatedAt,a.name,a.game_id gameId,g.title gameTitle FROM feedback f JOIN attempts a ON a.id=f.attempt_id JOIN games g ON g.id=a.game_id ORDER BY f.updated_at').all();
+      const events=[];
+      for(const a of attempts)events.push({id:'mc-attempt-'+a.id,projectId:'missao-circular',type:'attempt',at:new Date(a.updatedAt).toISOString(),participantId:a.name,participantName:a.name,actorRole:'student',sessionId:a.id,metadata:{sourceGameId:a.gameId,gameTitle:a.gameTitle}});
+      for(const r of results){
+        events.push({id:'mc-completion-'+r.id,projectId:'missao-circular',type:'completion',at:new Date(r.createdAt).toISOString(),participantId:r.name,participantName:r.name,actorRole:'student',sessionId:r.attemptId,metadata:{sourceGameId:r.gameId,gameTitle:r.gameTitle}});
+        events.push({id:'mc-score-'+r.id,projectId:'missao-circular',type:'score',at:new Date(r.createdAt).toISOString(),participantId:r.name,participantName:r.name,actorRole:'student',sessionId:r.attemptId,score:Number(r.points)||0,maxScore:80,metadata:{sourceGameId:r.gameId,gameTitle:r.gameTitle}});
+      }
+      for(const x of feedback)events.push({id:'mc-feedback-'+x.id,projectId:'missao-circular',type:'feedback',at:new Date(x.updatedAt).toISOString(),participantId:x.name,participantName:x.name,actorRole:'student',sessionId:x.attemptId,rating:({Excelente:5,'Muito bom':4,Bom:3,Cansativo:2,Ruim:1}[x.rating]??Number(x.rating)||null),comment:x.comment||null,metadata:{sourceGameId:x.gameId,gameTitle:x.gameTitle,resultId:x.resultId||null}});
+      output(res,200,{schema:'keise-learning-analytics/v1',project:{id:'missao-circular',name:'Missão Circular',discipline:'Design e Sustentabilidade'},generatedAt:new Date(now()).toISOString(),events});return true;
+    }
     if(path==='/admin/data/archive'&&method==='POST'){
       const b=await body(req),chosen=selection({...b,kind:'feedback'});
       if(typeof b.archived!=='boolean')fail(400,'Estado de arquivamento inválido.');
