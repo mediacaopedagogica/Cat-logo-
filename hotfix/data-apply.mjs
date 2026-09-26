@@ -20,7 +20,7 @@ edit('server/portal.mjs',s=>{
  return s;
 });
 edit('public/mediadora/index.html',s=>{
- s=rep(s,'</head>','<link rel="stylesheet" href="data-controls.css?v=23.2"></head>');
+ s=rep(s,'</head>','<link rel="stylesheet" href="data-controls.css?v=23.3"></head>');
  s=rep(s,'<script src="panel.js"></script>','<script src="data-controls.js?v=23.3"></script><script src="manual-panel-refresh.js?v=23.3"></script><script src="panel.js?v=23.3"></script>');
  return rep(s,'<label class="check-row"><input type="checkbox" id="gameLinkRequired">','<label class="check-row"><input type="checkbox" id="gameFeedbackEnabled" checked> Receber avaliações ao final</label><p class="note">Desmarque para pausar novos envios. Avaliações já recebidas, resultados e acesso ao jogo são preservados.</p><label class="check-row"><input type="checkbox" id="gameLinkRequired">');
 });
@@ -39,7 +39,7 @@ edit('public/shared/host-client.js',s=>{
  s=rep(s,"{method:'POST',headers,credentials:'omit',body:JSON.stringify(payload),signal:controller.signal}","{method,headers,credentials:'omit',body:method==='GET'?undefined:JSON.stringify(payload),signal:controller.signal}");
  return rep(s,'return {onParticipant,onProgress,onResult,onFeedback,getSession:',"return {onParticipant,onProgress,onResult,onFeedback,onFeedbackPolicy:()=>request('/public/feedback-policy',null,saved?.token,'GET'),getSession:");
 });
-edit('public/gameseducativos/index.html',s=>rep(s,'</body>','<script src="feedback-policy.js?v=23.2"></script>\n</body>'));
+edit('public/gameseducativos/index.html',s=>rep(s,'</body>','<script src="feedback-policy.js?v=23.3"></script>\n</body>'));
 const files=['server/portal.mjs','server/data-management.mjs','public/mediadora/panel.js','public/mediadora/index.html','public/mediadora/data-controls.js','public/mediadora/data-controls.css','public/mediadora/manual-panel-refresh.js','public/shared/host-client.js','public/gameseducativos/feedback-policy.js','public/gameseducativos/index.html'];
-writeFileSync(resolve(root,'DATA_CONTROLS_SHA256.json'),JSON.stringify({version:'23.2',files:Object.fromEntries(files.map(p=>[p,createHash('sha256').update(readFileSync(resolve(root,p))).digest('hex')]))},null,2));
+writeFileSync(resolve(root,'DATA_CONTROLS_SHA256.json'),JSON.stringify({version:'23.3',files:Object.fromEntries(files.map(p=>[p,createHash('sha256').update(readFileSync(resolve(root,p))).digest('hex')]))},null,2));
 console.log('23.3: painel da mediadora em atualização manual; sem live/SSE contínuo. Nenhum registro alterado.');
